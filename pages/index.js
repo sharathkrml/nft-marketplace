@@ -94,7 +94,7 @@ export default function Home() {
                 </div>
                 <div className="p-4 bg-black">
                   <p className="text-2xl font-bold text-white">
-                    {oneNft.price} ETH
+                    {oneNft.price} Matic
                   </p>
                   <button
                     className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
