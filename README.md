@@ -48,3 +48,13 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+## Deploy locally
+
+Open a terminal 
+```
+npx hardhat node
+```
+open another and run
+```
+npx hardhat run scripts/deploy.js --network localhost
+```

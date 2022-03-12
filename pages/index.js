@@ -21,7 +21,7 @@ export default function Home() {
       provider
     );
 
-    const data = await marketContract.fetchMarketItems();
+    const data = await marketContract.fetchMarketItem();
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
