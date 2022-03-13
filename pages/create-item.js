@@ -26,6 +26,7 @@ export default function CreateItem() {
       });
 
       const url = `http://ipfs.infura.io/ipfs/${added.path}`;
+      console.log(url);
       setFileUri(url);
     } catch (e) {
       console.log(e);
@@ -35,9 +36,9 @@ export default function CreateItem() {
     const { name, description, price } = formInput;
     console.log(price);
     if (!name || !description || !price || !fileUri) {
-        console.log(formInput,fileUri)
-        return
-    };
+      console.log(formInput, fileUri);
+      return;
+    }
     const data = JSON.stringify({
       name,
       description,
