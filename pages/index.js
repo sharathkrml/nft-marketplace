@@ -43,22 +43,24 @@ export default function Home() {
     setLoadingState("loaded");
   };
 
-  const buyNft = async (nft) => {
+  async function buyNft(nft) {
     const web3modal = new Web3modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(nftmarketAddress, MARKET.abi, signer);
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-    const transaction = await contract.createMarketSale(
-      nftAddress,
-      nft.tokenId,
-      { value: price }
-    );
-    await transaction.wait();
+    try {
+      const transaction = await contract.createMarketSale(nft.tokenId, {
+        value: price,
+      });
+      await transaction.wait();
+    } catch (e) {
+      console.log(e);
+    }
     // after finishing
     loadNFTs();
-  };
+  }
   useEffect(() => {
     loadNFTs();
   }, []);
