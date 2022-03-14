@@ -5,7 +5,9 @@ import axios from "axios";
 import Web3modal from "web3modal";
 import { nftmarketAddress } from "../config";
 
-import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
+// import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
+import MARKET from "../public/NFTMarketplace.json";
+
 export default function Home() {
   const [nft, setNft] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");

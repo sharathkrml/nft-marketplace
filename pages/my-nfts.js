@@ -5,7 +5,7 @@ import Web3Modal from "web3modal";
 import { useRouter } from "next/router";
 
 import { nftmarketAddress } from "../config";
-import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
+import MARKET from "../public/NFTMarketplace.json";
 
 export default function MyNfts() {
   const [myNfts, setMyNfts] = useState([]);

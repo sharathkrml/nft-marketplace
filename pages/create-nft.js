@@ -6,7 +6,9 @@ import Web3Modal from "web3modal";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 import {nftmarketAddress} from "../config";
-import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
+// import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
+import MARKET from "../public/NFTMarketplace.json";
+
 
 export default function CreateNft() {
   const [fileUrl, setFileUrl] = useState(null);
