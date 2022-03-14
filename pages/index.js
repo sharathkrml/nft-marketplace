@@ -3,28 +3,28 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3modal from "web3modal";
-import { nftAddress, nftmarketAddress } from "../config";
+import { nftmarketAddress } from "../config";
 
-import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
-import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+import MARKET from "../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json";
 export default function Home() {
   const [nft, setNft] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
 
   const loadNFTs = async () => {
     // in read operation,we dont need to know anything about provider,so use JsonRpcProvider
-    const provider = new ethers.providers.JsonRpcProvider();
-    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+    const provider = new ethers.providers.JsonRpcProvider(
+      "https://rpc-mumbai.maticvigil.com"
+    );
     const marketContract = new ethers.Contract(
       nftmarketAddress,
       MARKET.abi,
       provider
     );
 
-    const data = await marketContract.fetchMarketItem();
+    const data = await marketContract.fetchMarketItems();
     const items = await Promise.all(
       data.map(async (i) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        const tokenUri = await marketContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
         let price = ethers.utils.formatUnits(i.price.toString(), "ether");
         let item = {
