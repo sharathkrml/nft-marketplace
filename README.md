@@ -58,3 +58,5 @@ open another and run
 ```
 npx hardhat run scripts/deploy.js --network localhost
 ```
+
+NFT Marketplace address : 0xCaaDb6Df95eC80884EfD881dc90fb2CDE26c84E4
