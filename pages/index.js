@@ -14,35 +14,39 @@ export default function Home() {
 
   const loadNFTs = async () => {
     // in read operation,we dont need to know anything about provider,so use JsonRpcProvider
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://rpc-mumbai.maticvigil.com"
-    );
-    const marketContract = new ethers.Contract(
-      nftmarketAddress,
-      MARKET.abi,
-      provider
-    );
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://matic-mumbai.chainstacklabs.com"
+      );
+      const marketContract = new ethers.Contract(
+        nftmarketAddress,
+        MARKET.abi,
+        provider
+      );
 
-    const data = await marketContract.fetchMarketItems();
-    const items = await Promise.all(
-      data.map(async (i) => {
-        const tokenUri = await marketContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-        let item = {
-          price,
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-        };
-        return item;
-      })
-    );
-    setNft(items);
-    setLoadingState("loaded");
+      const data = await marketContract.fetchMarketItems();
+      const items = await Promise.all(
+        data.map(async (i) => {
+          const tokenUri = await marketContract.tokenURI(i.tokenId);
+          const meta = await axios.get(tokenUri);
+          let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+          let item = {
+            price,
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            owner: i.owner,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+          };
+          return item;
+        })
+      );
+      setNft(items);
+      setLoadingState("loaded");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   async function buyNft(nft) {
